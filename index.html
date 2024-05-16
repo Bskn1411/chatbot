@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I am GROOT</title>
+</head>
+    <style>
+       h1 {
+            color: pink;
+            text-align: center; 
+            margin-top: 0; 
+           
+        }
+        body {
+            background-color: black;
+            display: flex;
+            flex-direction: column; 
+            align-items: center;
+        }
+        #chatbox {   
+            display: flex;
+            flex-direction: column; 
+            align-items: left;
+            height: auto; 
+            max-height: 75vh; 
+            overflow-x: auto; 
+            border: 0.5px solid rgb(0, 0, 0.5px);    
+            color: #fff700;
+            padding: 10px; 
+            margin-top: 20px; 
+            width: 1500px;
+        }
+        form {
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            position: fixed;
+            bottom: 0;
+            gap: 10px;
+        }
+        #userInput {
+            font-family: serif;
+            font-size: larger;
+            font-weight: lighter;
+            color: black;
+            height: 30px;
+            width: 500px;
+            border-radius: 10px;   
+        }
+        #button{
+            height: 30px;
+            font-weight: 500;
+            border-radius: 7px;
+            background-color: black;
+            color: #fff700;
+            transition: all 1s; 
+        } 
+        #button:hover{
+            box-shadow: 1px -2px 6px rgb(0, 255, 255),-1px 2px 6px rgb(0, 255, 255);
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Hi! How Can I Help You Today</h1>
+    <div id="chatbox"></div>
+    <form onsubmit="event.preventDefault(); sendMessage();">
+        <input type="text" id="userInput" placeholder="Ask anything..." required>
+        <input type="submit" id="button" value="Send">
+    </form>
+
+    <script>
+        async function sendMessage() {
+            var inputField = document.getElementById('userInput');
+            var chatbox = document.getElementById('chatbox');
+            
+            // Add user message to chatbox 
+            chatbox.innerHTML += 'YOU' + '<br>' + inputField.value + '<br><br>';
+            
+            // Send user message to server and get response
+            var response = await fetch('/send_message', {
+                method: 'POST',
+                body: new URLSearchParams('message=' + inputField.value),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(response => response.text());
+
+            response = response.replace(/\**/g, '');//for replacing **
+            response = response.replace(/\n/g, '   ');
+
+            // Typing animation for AI response
+            await typeMessage('Bot-Groot',response);
+
+            // Clear the input field
+            inputField.value = '';
+        }
+
+        async function typeMessage(sender, message) {
+            var chatbox = document.getElementById('chatbox');
+            var delay = 10; // Adjust typing speed (milliseconds per character)
+
+            // Add sender's name
+            chatbox.innerHTML += sender + '<br>';
+
+            // Typing animation
+            for (var i = 0; i < message.length; i++) {
+                chatbox.innerHTML += message.charAt(i);
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+
+            // line break after the message
+            chatbox.innerHTML += '<br><br>';
+        }
+    </script>
+</body>
+</html>
