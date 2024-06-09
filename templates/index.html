@@ -5,69 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I am GROOT</title>
     <style>
+        html { overflow-y: hidden; }
+
         h1 {
             color: pink;
             text-align: center;
             margin-top: 0;
         }
         body {
+            font-family: 'Times New Roman', Times, serif;
             background-color: black;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #fff700;
-            font-family: Arial, sans-serif;
+            color: white;
             margin: 0;
-            padding-bottom: 60px; /* Ensure space for the fixed form */
+            padding-bottom: 60px;
+            overflow: hidden;
         }
         #chatbox {
             display: flex;
             flex-direction: column;
-            align-items: left;
+            align-items: flex-start;
             height: auto;
             max-height: 75vh;
-            overflow-y: auto;
-            border: 0.5px solid rgba(255, 255, 255, 0.5);
+            overflow-y: scroll; /* Enable scrolling */
+            border: 0.5px solid rgb(0, 0, 0); 
             padding: 10px;
             margin-top: 20px;
             width: 90%;
             max-width: 1200px;
-            margin-bottom: 60px; /* Ensure space for the fixed form */
+            margin-bottom: 60px;
+        }
+        #chatbox::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+        }
+        #chatbox {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
         form {
             display: flex;
-            flex-direction: row;
             align-items: center;
             justify-content: center;
-            margin-bottom: 5px;
             position: fixed;
             bottom: 0;
-            width: 100%;
+            width: 50%;
             padding: 10px;
             background-color: black;
-            z-index: 1000; /* Ensure the form is on top */
-            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
         }
         #userInput {
+            background-color: rgb(105, 103, 102);   
+            font-family: 'Times New Roman', Times, serif;
+            width: 100px;
             font-size: larger;
-            color: black;
+            color: white;
             height: 30px;
             flex: 1;
             border-radius: 10px;
             padding: 0 10px;
-            margin-right: 10px; /* Add margin to the right of the input field */
+            margin-right: 4px;
+            outline: none;
+            transition: border-color 0.2s ease-out;
+        }
+        #userInput::placeholder {
+            color: rgb(184, 184, 184);
+        }
+        #userInput:focus {
+            border-color: #fff700;
         }
         #button {
             height: 30px;
             font-weight: 500;
             border-radius: 7px;
-            background-color: black;
+            background-color: rgb(105, 103, 102);
             color: #fff700;
-            transition: all 0.3s;
+            transition: all 0.5s;
             padding: 0 15px;
+            cursor: pointer;
         }
         #button:hover {
-            box-shadow: 1px -2px 6px rgb(0, 255, 255), -1px 2px 6px rgb(0, 255, 255);
+            box-shadow: 1px -2px 6px rgb(255, 0, 242), -1px 2px 6px rgb(111, 255, 0);
         }
         @media (max-width: 600px) {
             h1 {
@@ -100,8 +118,9 @@
             var inputField = document.getElementById('userInput');
             var chatbox = document.getElementById('chatbox');
             
-            // Add user message to chatbox 
+            // Add user message to chatbox
             chatbox.innerHTML += '<b>YOU</b><br>' + inputField.value + '<br><br>';
+            scrollToBottom();
             
             // Send user message to server and get response
             var response = await fetch('/send_message', {
@@ -117,14 +136,14 @@
 
             // Typing animation for AI response
             await typeMessage('Bot-Groot', response);
-
+            
             // Clear the input field
             inputField.value = '';
         }
 
         async function typeMessage(sender, message) {
             var chatbox = document.getElementById('chatbox');
-            var delay = 10; // Adjust typing speed (milliseconds per character)
+            var delay = 2; // Adjust typing speed (milliseconds per character)
 
             // Add sender's name
             chatbox.innerHTML += '<b>' + sender + '</b><br>';
@@ -137,7 +156,16 @@
 
             // Line break after the message
             chatbox.innerHTML += '<br><br>';
+            scrollToBottom();
         }
+
+        function scrollToBottom() {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        // Initial scroll to bottom on page load
+        window.onload = scrollToBottom;
     </script>
 </body>
 </html>
