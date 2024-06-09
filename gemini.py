@@ -44,6 +44,7 @@ def home():
 @app.route('/send_message', methods=['POST', 'GET'])
 def send_message():
     message = request.form['message']
+    print(message)
     convo.send_message(message)
     return convo.last.text
 
