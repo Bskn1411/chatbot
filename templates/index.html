@@ -36,6 +36,7 @@
             width: 90%;
             max-width: 1200px;
             margin-bottom: 60px;
+            padding-bottom: 80px; /* Add padding to bottom */
         }
         #chatbox::-webkit-scrollbar {
             display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -50,7 +51,7 @@
             justify-content: center;
             position: fixed;
             bottom: 0;
-            width: 50%;
+            width: 90%; /* Adjust width for mobile */
             padding: 10px;
             background-color: black;
         }
@@ -95,6 +96,10 @@
                 width: 95%;
                 max-width: none;
                 font-size: 0.9rem;
+            }
+            form {
+                width: 100%; /* Ensure form width fits screen */
+                padding: 5px; /* Reduce padding on mobile */
             }
             #userInput {
                 font-size: medium;
@@ -143,7 +148,7 @@
 
         async function typeMessage(sender, message) {
             var chatbox = document.getElementById('chatbox');
-            var delay = 2; // Adjust typing speed (milliseconds per character)
+            var delay = 3; // Adjust typing speed (milliseconds per character)
 
             // Add sender's name
             chatbox.innerHTML += '<b>' + sender + '</b><br>';
