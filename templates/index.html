@@ -51,7 +51,7 @@
             justify-content: center;
             position: fixed;
             bottom: 0;
-            width: 90%; /* Adjust width for mobile */
+            width: 50%; /* Adjust width for mobile */
             padding: 10px;
             background-color: black;
         }
@@ -148,7 +148,7 @@
 
         async function typeMessage(sender, message) {
             var chatbox = document.getElementById('chatbox');
-            var delay = 3; // Adjust typing speed (milliseconds per character)
+            var delay = 2; // Adjust typing speed (milliseconds per character)
 
             // Add sender's name
             chatbox.innerHTML += '<b>' + sender + '</b><br>';
@@ -157,11 +157,12 @@
             for (var i = 0; i < message.length; i++) {
                 chatbox.innerHTML += message.charAt(i);
                 await new Promise(resolve => setTimeout(resolve, delay));
+                scrollToBottom(); // Scroll to bottom after each character is added
             }
 
             // Line break after the message
             chatbox.innerHTML += '<br><br>';
-            scrollToBottom();
+            scrollToBottom(); // Ensure scroll to bottom after the complete message
         }
 
         function scrollToBottom() {
