@@ -119,59 +119,77 @@
         <input type="submit" id="button" value="Send">
     </form>
     <script>
-        async function sendMessage() {
-            var inputField = document.getElementById('userInput');
-            var chatbox = document.getElementById('chatbox');
-            
-            // Add user message to chatbox
-            chatbox.innerHTML += '<b>YOU</b><br>' + inputField.value + '<br><br>';
-            scrollToBottom();
-            
-            // Send user message to server and get response
-            var response = await fetch('/send_message', {
-                method: 'POST',
-                body: new URLSearchParams('message=' + inputField.value),
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                }
-            }).then(response => response.text());
-
-            response = response.replace(/\*/g, ''); // Remove asterisks
-            response = response.replace(/\n/g, ' '); // Replace newlines with spaces
-
-            // Typing animation for AI response
-            await typeMessage('Bot-Groot', response);
-            
-            // Clear the input field
-            inputField.value = '';
+       async function sendMessage() {
+    var inputField = document.getElementById('userInput');
+    var chatbox = document.getElementById('chatbox');
+    
+    // Add user message to chatbox
+    chatbox.innerHTML += '<b>YOU</b><br>' + inputField.value + '<br><br>';
+    scrollToBottom();
+    
+    // Show typing indicator
+    var typingIndicator = document.createElement('div');
+    typingIndicator.innerHTML = '<b>Bot-Groot</b><br><span id="typingIndicator">...</span><br><br>';
+    chatbox.appendChild(typingIndicator);
+    scrollToBottom();
+    
+    // Start typing indicator animation
+    var typingDots = 0;
+    var typingInterval = setInterval(() => {
+        var dots = '.'.repeat((typingDots % 3) + 1);
+        document.getElementById('typingIndicator').innerText = dots;
+        typingDots++;
+    }, 500); // Update every 500ms
+    
+    // Send user message to server and get response
+    var response = await fetch('/send_message', {
+        method: 'POST',
+        body: new URLSearchParams('message=' + inputField.value),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
         }
+    }).then(response => response.text());
 
-        async function typeMessage(sender, message) {
-            var chatbox = document.getElementById('chatbox');
-            var delay = 2; // Adjust typing speed (milliseconds per character)
+    response = response.replace(/\*/g, ''); // Remove asterisks
+    // response = response.replace(/\n/g, '<br>'); // Replace newlines with spaces
 
-            // Add sender's name
-            chatbox.innerHTML += '<b>' + sender + '</b><br>';
+    // Stop typing indicator animation
+    clearInterval(typingInterval);
+    typingIndicator.remove();
 
-            // Typing animation
-            for (var i = 0; i < message.length; i++) {
-                chatbox.innerHTML += message.charAt(i);
-                await new Promise(resolve => setTimeout(resolve, delay));
-                scrollToBottom(); // Scroll to bottom after each character is added
-            }
+    // Typing animation for AI response
+    await typeMessage('Bot-Groot', response);
+    
+    // Clear the input field
+    inputField.value = '';
+}
 
-            // Line break after the message
-            chatbox.innerHTML += '<br><br>';
-            scrollToBottom(); // Ensure scroll to bottom after the complete message
-        }
+async function typeMessage(sender, message) {
+    var chatbox = document.getElementById('chatbox');
+    var delay = 2; // Adjust typing speed (milliseconds per character)
+    
+    // Add sender's name
+    chatbox.innerHTML += '<b>' + sender + '</b><br>';
 
-        function scrollToBottom() {
-            var chatbox = document.getElementById('chatbox');
-            chatbox.scrollTop = chatbox.scrollHeight;
-        }
+    // Typing animation
+    for (var i = 0; i < message.length; i++) {
+        chatbox.innerHTML += message.charAt(i);
+        await new Promise(resolve => setTimeout(resolve, delay));
+        scrollToBottom(); // Scroll to bottom after each character is added
+    }
 
-        // Initial scroll to bottom on page load
-        window.onload = scrollToBottom;
+    // Line break after the message
+    chatbox.innerHTML += '<br><br>';
+    scrollToBottom(); // Ensure scroll to bottom after the complete message
+}
+
+function scrollToBottom() {
+    var chatbox = document.getElementById('chatbox');
+    chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+// Initial scroll to bottom on page load
+window.onload = scrollToBottom;
     </script>
 </body>
 </html>
