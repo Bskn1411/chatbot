@@ -6,12 +6,6 @@
     <title>I am GROOT</title>
     <style>
         html { overflow-y: hidden; }
-
-        h1 {
-            color: pink;
-            text-align: center;
-            margin-top: 0;
-        }
         body {
             font-family: 'Times New Roman', Times, serif;
             background-color: black;
@@ -30,9 +24,8 @@
             height: auto;
             max-height: 75vh;
             overflow-y: scroll; /* Enable scrolling */
-            border: 0.5px solid rgb(0, 0, 0); 
             padding: 10px;
-            margin-top: 20px;
+            margin-top: 80px;
             width: 90%;
             max-width: 1200px;
             margin-bottom: 60px;
@@ -53,10 +46,9 @@
             bottom: 0;
             width: 50%; /* Adjust width for mobile */
             padding: 10px;
-            background-color: black;
         }
         #userInput {
-            background-color: rgb(105, 103, 102);   
+            background-color: rgb(49, 46, 53);   
             font-family: 'Times New Roman', Times, serif;
             width: 100px;
             font-size: larger;
@@ -70,7 +62,7 @@
             transition: border-color 0.2s ease-out;
         }
         #userInput::placeholder {
-            color: rgb(184, 184, 184);
+            color: white;
         }
         #userInput:focus {
             border-color: #fff700;
@@ -79,7 +71,7 @@
             height: 30px;
             font-weight: 500;
             border-radius: 7px;
-            background-color: rgb(105, 103, 102);
+            background-color: rgb(49, 46, 53);
             color: #fff700;
             transition: all 0.5s;
             padding: 0 15px;
@@ -109,87 +101,148 @@
                 font-size: 0.9rem;
             }
         }
+        body {
+            display: flex;
+            background-color: #1b192e;
+            justify-content: center;
+        }
+        #h1 {
+            text-align: center;
+            margin-top: 0;
+            top: 1em;
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', Courier, monospace;
+            background: linear-gradient(45deg, rgb(255, 0, 166), rgba(244, 123, 246, 0.856));
+            background-clip: text;
+            color: transparent;
+            font-size: 2em;
+            font-style: italic;
+            font-weight: 550;
+            overflow: hidden;
+        }
+        #h1::before {
+            z-index: -10;
+            position: absolute;
+            content: '';
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 500px;
+            background: linear-gradient(rgba(255, 8, 8, 0.91), rgb(0, 255, 251));
+            animation: infinite linear 10s rot;
+        }
+        #h1::after {
+            position: absolute;
+            content: '';
+            inset: 2px;
+            z-index: -5;
+            background-color: #0D1F21;
+        }
+        @keyframes rot {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(180deg); }
+            50% { transform: rotate(360deg); }
+            75% { transform: rotate(-180deg); }
+            100% { transform: rotate(0deg); }
+        }
     </style>
 </head>
 <body>
-    <h1>Hi! How Can I Help You Today</h1>
+    <div id="h1"> Hi! How Can I Help You Today </div>
     <div id="chatbox"></div>
     <form onsubmit="event.preventDefault(); sendMessage();">
         <input type="text" id="userInput" placeholder="Ask anything..." required>
         <input type="submit" id="button" value="Send">
     </form>
     <script>
-       async function sendMessage() {
-    var inputField = document.getElementById('userInput');
-    var chatbox = document.getElementById('chatbox');
-    
-    // Add user message to chatbox
-    chatbox.innerHTML += '<b>YOU</b><br>' + inputField.value + '<br><br>';
-    scrollToBottom();
-    
-    // Show typing indicator
-    var typingIndicator = document.createElement('div');
-    typingIndicator.innerHTML = '<b>Bot-Groot</b><br><span id="typingIndicator">...</span><br><br>';
-    chatbox.appendChild(typingIndicator);
-    scrollToBottom();
-    
-    // Start typing indicator animation
-    var typingDots = 0;
-    var typingInterval = setInterval(() => {
-        var dots = '.'.repeat((typingDots % 3) + 1);
-        document.getElementById('typingIndicator').innerText = dots;
-        typingDots++;
-    }, 500); // Update every 500ms
-    
-    // Send user message to server and get response
-    var response = await fetch('/send_message', {
-        method: 'POST',
-        body: new URLSearchParams('message=' + inputField.value),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+        async function sendMessage() {
+            var inputField = document.getElementById('userInput');
+            var chatbox = document.getElementById('chatbox');
+            
+            // Add user message to chatbox
+            chatbox.innerHTML += '<b>YOU</b><br>' + inputField.value + '<br><br>';
+            scrollToBottom();
+            
+            // Show typing indicator
+            var typingIndicator = document.createElement('div');
+            typingIndicator.innerHTML = '<b>Bot-Groot</b><br><span id="typingIndicator">...</span><br><br>';
+            chatbox.appendChild(typingIndicator);
+            scrollToBottom();
+            
+            // Start typing indicator animation
+            var typingDots = 0;
+            var typingInterval = setInterval(() => {
+                var dots = '.'.repeat((typingDots % 3) + 1);
+                document.getElementById('typingIndicator').innerText = dots;
+                typingDots++;
+            }, 500); // Update every 500ms
+            
+            // Send user message to server and get response
+            var response = await fetch('/send_message', {
+                method: 'POST',
+                body: new URLSearchParams('message=' + inputField.value),
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }).then(response => response.text());
+
+            // Stop typing indicator animation
+            clearInterval(typingInterval);
+            typingIndicator.remove();
+
+            // Format the response message
+            response = formatMessage(response);
+
+            // Typing animation for AI response
+            await typeMessage('Bot-Groot', response);
+            
+            // Clear the input field
+            inputField.value = '';
         }
-    }).then(response => response.text());
 
-    response = response.replace(/\*/g, ''); // Remove asterisks
-    // response = response.replace(/\n/g, '<br>'); // Replace newlines with spaces
+        function formatMessage(message) {
+            // Replace periods with periods followed by two spaces
+            message = message.replace(/\**/g, '');
+            // Remove new lines
+            message = message.replace(/\n/g, '<br>');
+            // Trim the message
+            message = message.trim();
+            return message;
+        }
 
-    // Stop typing indicator animation
-    clearInterval(typingInterval);
-    typingIndicator.remove();
+        async function typeMessage(sender, message) {
+            var chatbox = document.getElementById('chatbox');
+            var words = message.split(' ');
+            var delay = 3; // Adjust typing speed (milliseconds per character)
+            var typedMessageElement = document.createElement('div');
+            typedMessageElement.innerHTML = '<b>' + sender + '</b><br><br>';
+            chatbox.appendChild(typedMessageElement);
+            scrollToBottom();
 
-    // Typing animation for AI response
-    await typeMessage('Bot-Groot', response);
-    
-    // Clear the input field
-    inputField.value = '';
-}
+            // Typing animation for words
+            for (var i = 0; i < words.length; i++) {
+                var word = words[i];
+                typedMessageElement.innerHTML += word + ' ';
+                await new Promise(resolve => setTimeout(resolve, delay * word.length));
+                scrollToBottom(); // Scroll to bottom after each word is added
+            }
 
-async function typeMessage(sender, message) {
-    var chatbox = document.getElementById('chatbox');
-    var delay = 2; // Adjust typing speed (milliseconds per character)
-    
-    // Add sender's name
-    chatbox.innerHTML += '<b>' + sender + '</b><br>';
+            // Line break after the message
+            typedMessageElement.innerHTML += '<br><br>';
+            scrollToBottom(); // Ensure scroll to bottom after the complete message
+        }
 
-    // Typing animation
-    for (var i = 0; i < message.length; i++) {
-        chatbox.innerHTML += message.charAt(i);
-        await new Promise(resolve => setTimeout(resolve, delay));
-        scrollToBottom(); // Scroll to bottom after each character is added
-    }
+        function scrollToBottom() {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
 
-    // Line break after the message
-    chatbox.innerHTML += '<br><br>';
-    scrollToBottom(); // Ensure scroll to bottom after the complete message
-}
-
-function scrollToBottom() {
-    var chatbox = document.getElementById('chatbox');
-    chatbox.scrollTop = chatbox.scrollHeight;
-}
-
-// Initial scroll to bottom on page load
-window.onload = scrollToBottom;
+        // Initial scroll to bottom on page load
+        window.onload = scrollToBottom;
     </script>
 </body>
 </html>
