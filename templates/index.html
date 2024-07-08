@@ -21,15 +21,15 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            height: auto;
+            height: calc(100vh - 160px); /* Adjust height to leave space for the input form */
             max-height: 75vh;
             overflow-y: scroll; /* Enable scrolling */
             padding: 10px;
-            margin-top: 100px;
+            margin-top: 70px;
             width: 90%;
             max-width: 1200px;
-            margin-bottom: 60px;
-            padding-bottom: 80px; /* Add padding to bottom */
+            margin-bottom: 10px; /* Reduce margin-bottom */
+            padding-bottom: 10px; /* Reduce padding-bottom */
         }
         #chatbox::-webkit-scrollbar {
             display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -46,11 +46,13 @@
             bottom: 0;
             width: 50%; /* Adjust width for mobile */
             padding: 10px;
+            background-color: #1b192e; /* Add background color */
+            z-index: 1000; /* Ensure form is above chatbox */
         }
         #userInput {
             background-color: rgb(49, 46, 53);   
             font-family: 'Times New Roman', Times, serif;
-            width: 100px;
+            width: 100%;
             font-size: larger;
             color: white;
             height: 30px;
@@ -58,12 +60,12 @@
             border-radius: 10px;
             padding: 0 10px;
             margin-left: 4px; /*for joint of inputs*/
-            margin-bottom: -5px;/*for joint of inputs*/
             outline: none;
             transition: border-color 0.2s ease-out;
         }
         #userInput::placeholder {
             color: white;
+            opacity: 0.5;
         }
         #userInput:focus {
             border-color: #fff700;
@@ -76,7 +78,6 @@
             color: #fff700;
             transition: all 0.5s;
             padding: 0 15px;
-            margin-bottom: -5px;/*for joint of inputs*/
             cursor: pointer;
         }
         #button:hover {
@@ -90,6 +91,7 @@
                 width: 95%;
                 max-width: none;
                 font-size: 0.9rem;
+                height: calc(100vh - 120px); /* Adjust height for mobile to leave space for the input form */
             }
             form {
                 width: 100%; /* Ensure form width fits screen */
@@ -110,7 +112,7 @@
         }
         #h1 {
             text-align: center;
-            margin-top: 0;
+            margin-top: -10px;
             top: 1em;
             position: absolute;
             display: flex;
