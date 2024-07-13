@@ -79,13 +79,15 @@
             transition: all 0.5s;
             padding: 0 15px;
             cursor: pointer;
+            /*#9B0183*/
         }
         #button:hover {
             box-shadow: 1px -2px 6px rgb(255, 0, 242), -1px 2px 6px rgb(111, 255, 0);
         }
         @media (max-width: 600px) {
             h1 {
-                font-size: 1.5rem;
+                font-size: 1.0rem;
+            
             }
             #chatbox {
                 width: 95%;
@@ -112,7 +114,7 @@
         }
         #h1 {
             text-align: center;
-            margin-top: -10px;
+            margin-top: -30px;
             top: 1em;
             position: absolute;
             display: flex;
@@ -153,16 +155,42 @@
             75% { transform: rotate(-180deg); }
             100% { transform: rotate(0deg); }
         }
+          /* #h1 {
+            animation: lightning 40s infinite;
+        }
+        @keyframes lightning {
+            0%, 100% { color: transparent; }
+            50% { color: rgb(90, 241, 20) }
+        } */
     </style>
 </head>
 <body>
-    <div id="h1"> Hi! How Can I Help You Today </div>
+    <div id="h1"><span id="typeText"></span></div>
+    <!-- <div id="h1"> Hi! How Can I Help You Today </div> -->
     <div id="chatbox"></div>
     <form onsubmit="event.preventDefault(); sendMessage();">
         <input type="text" id="userInput" placeholder="Ask anything..." required>
         <input type="submit" id="button" value="Send">
     </form>
     <script>
+        // Typing effect for the header text
+        function typeEffect(element, text, delay) {
+            let charIndex = 0;
+            function typeChar() {
+                if (charIndex < text.length) {
+                    element.innerHTML += text.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeChar, delay);
+                }
+            }
+            typeChar();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const typeText = document.getElementById('typeText');
+            typeEffect(typeText, "Hi! How Can I Help You Today", 75);
+        });
+
         async function sendMessage() {
             var inputField = document.getElementById('userInput');
             var chatbox = document.getElementById('chatbox');
@@ -209,11 +237,8 @@
         }
 
         function formatMessage(message) {
-            // Replace periods with periods followed by two spaces
             message = message.replace(/\**/g, '');
-            // Remove new lines
             message = message.replace(/\n/g, '<br>');
-            // Trim the message
             message = message.trim();
             return message;
         }
@@ -221,23 +246,21 @@
         async function typeMessage(sender, message) {
             var chatbox = document.getElementById('chatbox');
             var words = message.split(' ');
-            var delay = 3; // Adjust typing speed (milliseconds per character)
+            var delay = 3;
             var typedMessageElement = document.createElement('div');
             typedMessageElement.innerHTML = '<b>' + sender + '</b><br><br>';
             chatbox.appendChild(typedMessageElement);
             scrollToBottom();
 
-            // Typing animation for words
             for (var i = 0; i < words.length; i++) {
                 var word = words[i];
                 typedMessageElement.innerHTML += word + ' ';
                 await new Promise(resolve => setTimeout(resolve, delay * word.length));
-                scrollToBottom(); // Scroll to bottom after each word is added
+                scrollToBottom();
             }
 
-            // Line break after the message
             typedMessageElement.innerHTML += '<br><br>';
-            scrollToBottom(); // Ensure scroll to bottom after the complete message
+            scrollToBottom();
         }
 
         function scrollToBottom() {
@@ -245,7 +268,6 @@
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
-        // Initial scroll to bottom on page load
         window.onload = scrollToBottom;
     </script>
 </body>
