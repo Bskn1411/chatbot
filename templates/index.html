@@ -5,156 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I am GROOT</title>
     <style>
-        html { overflow-y: hidden; }
-        body {
-            font-family: 'Times New Roman', Times, serif;
-            background-color: black;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: white;
-            margin: 0;
-            padding-bottom: 60px;
-            overflow: hidden;
-        }
-        #chatbox {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            height: calc(100vh - 160px); /* Adjust height to leave space for the input form */
-            max-height: 75vh;
-            overflow-y: scroll; /* Enable scrolling */
-            padding: 10px;
-            margin-top: 80px;/*this is to ensure chat box below the h1 tag man */
-            width: 90%;
-            max-width: 1200px;
-            margin-bottom: 10px; /* Reduce margin-bottom */
-            padding-bottom: 10px; /* Reduce padding-bottom */
-        }
-        #chatbox::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
-        }
-        #chatbox {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
-        }
-        form {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 0;
-            width: 50%; /* Adjust width for mobile */
-            padding: 10px;
-            background-color: #1b192e; /* Add background color */
-            z-index: 1000; /* Ensure form is above chatbox */
-        }
-        #userInput {
-            background-color: rgb(49, 46, 53);   
-            font-family: 'Times New Roman', Times, serif;
-            width: 100%;
-            font-size: larger;
-            color: white;
-            height: 30px;
-            flex: 1;
-            border-radius: 10px;
-            padding: 0 10px;
-            margin-left: 4px; /*for joint of inputs*/
-            outline: none;
-            transition: border-color 0.2s ease-out;
-        }
-        #userInput::placeholder {
-            color: white;
-            opacity: 0.5;
-        }
-        #userInput:focus {
-            border-color: #fff700;
-        }
-        #button {
-            height: 30px;
-            font-weight: 500;
-            border-radius: 7px;
-            background-color: rgb(49, 46, 53);
-            color: #fff700;
-            transition: all 0.5s;
-            padding: 0 15px;
-            cursor: pointer;
-            /*#9B0183*/
-        }
-        #button:hover {
-            box-shadow: 1px -2px 6px rgb(255, 0, 242), -1px 2px 6px rgb(111, 255, 0);
-        }
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 1.0rem;
-            
-            }
-            #chatbox {
-                width: 95%;
-                max-width: none;
-                font-size: 0.9rem;
-                height: calc(100vh - 120px); /* Adjust height for mobile to leave space for the input form */
-            }
-            form {
-                width: 100%; /* Ensure form width fits screen */
-                padding: 5px; /* Reduce padding on mobile */
-            }
-            #userInput {
-                font-size: medium;
-            }
-            #button {
-                padding: 0 10px;
-                font-size: 0.9rem;
-            }
-        }
-        body {
-            display: flex;
-            background-color: #1b192e;
-            justify-content: center;
-        }
-        #h1 {
-            text-align: center;
-            margin-top: -30px;
-            top: 1em;
-            position: absolute;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Courier New', Courier, monospace;
-            background: linear-gradient(45deg, rgb(255, 0, 166), rgba(244, 123, 246, 0.856));
-            background-clip: text;
-            color: transparent;
-            font-size: 2em;
-            font-style: italic;
-            font-weight: 550;
-            overflow: hidden;
-        }
-        #h1::before {
-            z-index: -10;
-            position: absolute;
-            content: '';
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 300px;
-            height: 500px;
-            background: linear-gradient(rgb(251, 3, 3), rgb(0, 255, 251));
-            animation: infinite linear 10s rot;
-        }
-        #h1::after {
-            position: absolute;
-            content: '';
-            inset: 2px;
-            z-index: -5;
-            background-color: #0D1F21;
-        }
-        @keyframes rot {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(180deg); }
-            50% { transform: rotate(360deg); }
-            75% { transform: rotate(-180deg); }
-            100% { transform: rotate(0deg); }
-        }
+       html { overflow-y: hidden; }
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin: 0;
+    padding-bottom: 60px;
+    overflow: hidden;
+}
+#chatbox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: calc(100vh - 160px); /* Adjust height to leave space for the input form */
+    max-height: 75vh;
+    overflow-y: scroll; /* Enable scrolling */
+    padding: 10px;
+    margin-top: 80px; /* this is to ensure chat box below the h1 tag man */
+    width: 90%;
+    max-width: 1200px;
+    margin-bottom: 10px; /* Reduce margin-bottom */
+    padding-bottom: 10px; /* Reduce padding-bottom */
+}
+#chatbox::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+}
+#chatbox {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    width: 50%; /* Adjust width for mobile */
+    padding: 10px;
+    background-color: #1b192e; /* Add background color */
+    z-index: 1000; /* Ensure form is above chatbox */
+}
+#userInput {
+    background-color: rgb(49, 46, 53);   
+    font-family: 'Times New Roman', Times, serif;
+    width: 100%;
+    font-size: larger;
+    color: white;
+    height: 30px;
+    flex: 1;
+    border-radius: 10px;
+    padding: 0 10px;
+    margin-left: 4px; /* for joint of inputs */
+    outline: none;
+    transition: border-color 0.2s ease-out;
+}
+#userInput::placeholder {
+    color: white;
+    opacity: 0.5;
+}
+#userInput:focus {
+    border-color: #fff700;
+}
+#button {
+    height: 30px;
+    font-weight: 500;
+    border-radius: 7px;
+    background-color: rgb(49, 46, 53);
+    color: #fff700;
+    transition: all 0.5s;
+    padding: 0 15px;
+    cursor: pointer;
+    /*#9B0183*/
+}
+#button:hover {
+    box-shadow: 1px -2px 6px rgb(255, 0, 242), -1px 2px 6px rgb(111, 255, 0);
+}
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.0rem;
+    }
+    #chatbox {
+        width: 95%;
+        max-width: none;
+        font-size: 0.9rem;
+        height: calc(100vh - 160px); /* Adjust height for mobile to leave space for the input form */
+        margin-top: 100px; /* Add margin-top to prevent overlap */
+    }
+    form {
+        width: 100%; /* Ensure form width fits screen */
+        padding: 5px; /* Reduce padding on mobile */
+    }
+    #userInput {
+        font-size: medium;
+    }
+    #button {
+        padding: 0 10px;
+        font-size: 0.9rem;
+    }
+}
+body {
+    display: flex;
+    background-color: #1b192e;
+    justify-content: center;
+}
+#h1 {
+    text-align: center;
+    margin-top: -30px;
+    top: 1em;
+    position: relative; /* Change position to relative */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Courier New', Courier, monospace;
+    background: linear-gradient(45deg, rgb(255, 0, 166), rgba(244, 123, 246, 0.856));
+    background-clip: text;
+    color: transparent;
+    font-size: 2em;
+    font-style: italic;
+    font-weight: 550;
+    overflow: hidden;
+}
+#h1::before {
+    z-index: -10;
+    position: absolute;
+    content: '';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 500px;
+    background: linear-gradient(rgb(251, 3, 3), rgb(0, 255, 251));
+    animation: infinite linear 10s rot;
+}
+#h1::after {
+    position: absolute;
+    content: '';
+    inset: 2px;
+    z-index: -5;
+    background-color: #0D1F21;
+}
+@keyframes rot {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(180deg); }
+    50% { transform: rotate(360deg); }
+    75% { transform: rotate(-180deg); }
+    100% { transform: rotate(0deg); }
+}
+
           /* #h1 {
             animation: lightning 40s infinite;
         }
