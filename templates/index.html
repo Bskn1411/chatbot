@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="static/images/Yggdrasil.png" type="image/png">
     <title>I am GROOT</title>
     <style>
        html { overflow-y: hidden; }
@@ -28,8 +29,9 @@ body {
     margin-top: 50px; /* this is to ensure chat box below the h1 tag man */
     width: 90%;
     max-width: 1200px;
-    margin-bottom: 10px; /* Reduce margin-bottom */
-    padding-bottom: 10px; /* Reduce padding-bottom */
+    margin-bottom: 5px; /* Reduce margin-bottom */
+    padding-bottom: 5px; /* Reduce padding-bottom */
+    backdrop-filter: blur(0.9px);
 }
 #chatbox::-webkit-scrollbar {
     display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
@@ -127,14 +129,22 @@ form {
 }
 @media (max-width: 600px) {
     h1 {
+        font-family: verdana;
+        font-weight: bold;
         font-size: 1.5rem;
     }
     #chatbox {
+        /* width: 95%;
+        max-width: none;
+        font-size: 0.9rem;
+        height: calc(100vh - 160px); /* Adjust height for mobile to leave space for the input form 
+        margin-top: 50px; Add margin-top to prevent overlap */
+     
         width: 95%;
         max-width: none;
         font-size: 0.9rem;
         height: calc(100vh - 160px); /* Adjust height for mobile to leave space for the input form */
-        margin-top: 50px; /* Add margin-top to prevent overlap */
+        margin-top: 80px; /* Add margin-top to prevent overlap */
     }
     form {
         width: 100%; /* Ensure form width fits screen */
@@ -210,7 +220,7 @@ form {
     </style>
 </head>
 <body>
-    <iframe src="{{ url_for('static', filename='backanime.html') }}" style="width: 100%; height: 100vh; position: absolute; z-index: -1; filter: blur(2px);"></iframe>
+    <iframe src="{{ url_for('static', filename='backanime.html') }}" style="width: 100%; height: 100vh; position: absolute; z-index: -1;"></iframe>
 
     <div id="h1"><span id="typeText"></span></div>
     <!-- <div id="h1"> Hi! How Can I Help You Today</div> -->
@@ -314,6 +324,7 @@ form {
         function scrollToBottom() {
             var chatbox = document.getElementById('chatbox');
             chatbox.scrollTop = chatbox.scrollHeight;
+
         }
         window.onload = scrollToBottom;
     </script>
