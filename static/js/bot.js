@@ -83,10 +83,22 @@
             chatbox.scrollTop = chatbox.scrollHeight;
 
         }
-       function closeAlert() {
-                  document.getElementById('customAlert').style.display = 'none';  // Hide alert box
-                  document.getElementById('overlay').style.display = 'none';  // Hide overlay
-        }
+      window.onload = function() {
+    // Function to show and hide the popup
+    function showPopup() {
+        var popup = document.getElementById('popup');
+        popup.classList.add('show');
+
+        // Hide the popup after 5 seconds (5000 milliseconds)
+        setTimeout(function() {
+            popup.classList.remove('show');
+        }, 5000);
+    }
+
+    // Show the popup when the page loads
+    showPopup();
+};
+
 
 
         // window.onload = scrollToBottom;
