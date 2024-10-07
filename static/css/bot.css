@@ -214,6 +214,27 @@
 
 
 
+.popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    font-family: Arial, sans-serif;
+}
+
+/* When the popup is active, show it */
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
 
 
 
@@ -226,66 +247,3 @@
 
 
 
-        #overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-        }
-
-        /* Custom Alert Box */
-        #customAlert {
-            background-color: #4129f5;
-            padding: 20px;
-            width: 300px;
-            max-width: 80%;
-            border-radius: 8px;
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Message text in the custom alert */
-        #customAlert p {
-            margin: 0 0 20px;
-            color: #333;
-            font-size: 16px;
-        }
-
-        /* Button inside the alert */
-        #customAlert button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #customAlert button:hover {
-            background-color: #45a049;
-        }
-
-        /* Animations for the alert box appearance */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translate(-50%, -60%); }
-            to { transform: translate(-50%, -50%); }
-        }
-
-        #customAlert {
-            animation: fadeIn 0.5s, slideIn 0.5s;
-        }
