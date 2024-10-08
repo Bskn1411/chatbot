@@ -149,6 +149,17 @@
                 padding: 10px 10px;
                 font-size: 1rem;
             }
+            .popup {
+                width: 80%; /* Popup width */
+                left: 50%;  /* Center horizontally */
+                top: 50%;   /* Center vertically */
+                transform: translate(-50%, -50%); /* Adjust for true centering */
+                padding: 1em; /* Adjust padding */
+                font-size: 0.9rem; /* Adjust font size */
+                bottom: auto; /* Remove any previous bottom property */
+                right: auto;  /* Remove any previous right property */
+        
+            }
         }
 
         /* h1 Styling */
@@ -200,7 +211,6 @@
                 --angle: 360deg;
             }
         }
-
         iframe {
             position: absolute;
             top: 0;
@@ -214,36 +224,33 @@
 
 
 
-.popup {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 15px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 8px;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    font-family: Arial, sans-serif;
-}
-
-/* When the popup is active, show it */
-.popup.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-
-
-
-
-
-
-
-
-
-
-
+        
+        .popup {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 1%;
+                width: 200px;
+                border-radius: 10px;
+                background: linear-gradient(90deg, rgba(22, 54, 194, 0.5), rgba(80, 107, 204, 0.5));
+                box-shadow: 
+                    inset 3px 3px 10px 1px rgba(255, 255, 255, 0.2),
+                    inset -3px -3px 10px 1px rgba(0, 0, 0, 0.7),
+                    -6px -6px 10px 1px rgba(230, 205, 228, 0.05),
+                    6px 6px 10px 1px rgba(0, 0, 0, 0.3);
+                color: rgb(210, 210, 25);
+                font-weight: bold;
+                text-align: center;
+                opacity: 0; 
+                visibility: hidden; 
+                transition: opacity 0.9s ease, visibility 0.9s ease; /* Smooth transition */
+                z-index: 1000;
+            }
+            
+            .popup.show {
+                opacity: 1;
+                visibility: visible; 
+            }
