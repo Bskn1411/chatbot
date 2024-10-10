@@ -1,1 +1,1 @@
-This is a CHAT BOT  project using GEMINI API for generatig responcescand still under devolopement...😍
+This is a CHAT BOT  project using GEMINI API for generatig responces and under devolopement...😍
