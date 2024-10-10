@@ -3,10 +3,8 @@ import google.generativeai as genai
 import os
 app = Flask(__name__)
 gemini_api_key = os.getenv("GEMINI_API_KEY")
-genai.configure(api_key=gemini_api_key)
-#genai.configure(api_key="AIzaSyChSTvXp4795Cpvg-wSJnhsK2ItlNvGnGI")
-print(gemini_api_key)  # Make sure this prints the correct API key (only for debugging)
-
+genai.configure(api_key=gemini_api_key
+                
 generation_config = {
   "temperature": 1,
   "top_p": 0.95,
