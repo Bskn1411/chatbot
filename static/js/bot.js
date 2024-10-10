@@ -83,22 +83,26 @@
             chatbox.scrollTop = chatbox.scrollHeight;
 
         }
-      window.onload = function() {
-    // Function to show and hide the popup
-    function showPopup() {
-        var popup = document.getElementById('popup');
-        popup.classList.add('show');
+     function showPopup(message) {
+        const popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.innerHTML = message;
+        document.body.appendChild(popup);
 
-        // Hide the popup after 5 seconds (5000 milliseconds)
-        setTimeout(function() {
+        setTimeout(() => {
+            popup.classList.add('show');
+        }, 100); 
+        
+        setTimeout(() => {
             popup.classList.remove('show');
-        }, 5000);
+        }, 5000); 
+        
+        setTimeout(() => {
+            popup.remove();
+        }, 5500);
     }
-
-    // Show the popup when the page loads
-    showPopup();
-};
-
-
-
+    window.onload = function() {
+        showPopup("developer @BSKN <br> this project is under development.");
+        window.onload = scrollToBottom; 
+    };
         // window.onload = scrollToBottom;
