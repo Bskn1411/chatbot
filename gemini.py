@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template,redirect
 import google.generativeai as genai
-
+import os
 app = Flask(__name__)
-
-genai.configure(api_key="AIzaSyChSTvXp4795Cpvg-wSJnhsK2ItlNvGnGI")
-
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+genai.configure(api_key=gemini_api_key)
+#genai.configure(api_key="AIzaSyChSTvXp4795Cpvg-wSJnhsK2ItlNvGnGI")
 generation_config = {
   "temperature": 1,
   "top_p": 0.95,
